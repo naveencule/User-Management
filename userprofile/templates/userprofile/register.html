@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    {% load static %}
+
+    <!-- Include your custom CSS and MDB UI Kit -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet">
+    
+    <style>
+        /* Unique CSS for the registration page */
+        .register-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .register-nav {
+            margin-bottom: 20px;
+        }
+
+        .register-form .form-outline {
+            margin-bottom: 15px;
+        }
+
+        .register-form .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <ul class="nav nav-pills nav-justified register-nav" id="ex1" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="tab-login" href="{% url 'login' %}" role="tab" aria-controls="pills-login" aria-selected="false">Login</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="tab-register" href="{% url 'register' %}" role="tab" aria-controls="pills-register" aria-selected="true">Register</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <!-- The login form content will be similar to the login page -->
+            </div>
+
+            <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                <form method="post" class="register-form">
+                    {% csrf_token %}
+                    
+                    <!-- Username input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="registerUsername" name="username" class="form-control" required />
+                        <label class="form-label" for="registerUsername">Username</label>
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="registerEmail" name="email" class="form-control" required />
+                        <label class="form-label" for="registerEmail">Email</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="registerPassword" name="password1" class="form-control" required />
+                        <label class="form-label" for="registerPassword">Password</label>
+                    </div>
+
+                    <!-- Repeat Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="registerRepeatPassword" name="password2" class="form-control" required />
+                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="form-check d-flex justify-content-center mb-4">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" required />
+                        <label class="form-check-label" for="registerCheck">
+                            I have read and agree to the terms
+                        </label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</body>
+</html>

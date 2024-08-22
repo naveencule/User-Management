@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+            margin: 0 auto;
+        }
+        .profile-picture img {
+            width: 100%;
+            height: auto;
+        }
+        .profile-picture .placeholder-icon {
+            font-size: 100px;
+            color: #aaa;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        h3 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Edit Profile</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Profile Picture Section -->
+            <div class="form-group text-center">
+                <label for="profile_picture">Profile Picture</label>
+                <div class="profile-picture">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
+                    {% else %}
+                        <i class="fa fa-user placeholder-icon"></i>
+                    {% endif %}
+                </div>
+                <input type="file" name="profile_picture" id="profile_picture" class="form-control-file">
+            </div>
+
+            <!-- Profile Information Section -->
+            <div class="form-group">
+                <h3>Profile Information</h3>
+                {{ profile_form.as_p }}
+            </div>
+
+            <!-- Education Section -->
+            <div class="form-group">
+                <h3>Education</h3>
+                {{ education_formset.management_form }}
+                {% for form in education_formset %}
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Skills Section -->
+            <div class="form-group">
+                <h3>Skills</h3>
+                {{ skill_formset.management_form }}
+                {% for form in skill_formset %}
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-custom">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
